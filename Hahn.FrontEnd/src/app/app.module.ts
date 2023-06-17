@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { CustomersComponent } from './customers/customers.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CustomersComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    ReactiveFormsModule,
 
   ],
   exports: [
