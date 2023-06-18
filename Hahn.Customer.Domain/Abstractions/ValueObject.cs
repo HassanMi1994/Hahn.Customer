@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hahn.Customer.Domain.Abstractions
+﻿namespace Hahn.Customers.Domain.Abstractions
 {
     public abstract class ValueObject
     {
@@ -21,7 +15,7 @@ namespace Hahn.Customer.Domain.Abstractions
 
         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
         {
-            return !(EqualOperator(left, right));
+            return !EqualOperator(left, right);
         }
 
         public override bool Equals(object obj)
@@ -33,7 +27,7 @@ namespace Hahn.Customer.Domain.Abstractions
 
             var other = (ValueObject)obj;
 
-            return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+            return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
         }
 
         public override int GetHashCode()
@@ -45,7 +39,7 @@ namespace Hahn.Customer.Domain.Abstractions
 
         public ValueObject GetCopy()
         {
-            return this.MemberwiseClone() as ValueObject;
+            return MemberwiseClone() as ValueObject;
         }
     }
 }

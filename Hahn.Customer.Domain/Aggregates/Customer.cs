@@ -1,8 +1,6 @@
-﻿using Hahn.Customer.Domain.Abstractions;
-using Hahn.Customer.Domain.Exceptions;
-using Hahn.Customer.CustomerDomain.Events;
+﻿using Hahn.Customers.Domain.Abstractions;
 
-namespace Hahn.Customer.Domain.Aggregates
+namespace Hahn.Customers.Domain.Aggregates
 {
     public class Customer : Entity, IAggregateRoot
     {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Hahn.Customer.CustomerDomain.Events
+namespace Hahn.Customers.CustomerDomain.Events
 {
     public class CustomerUpdatedDomainEvent : INotification
     {

@@ -1,4 +1,4 @@
-﻿namespace Hahn.Customer.Domain.Aggregates
+﻿namespace Hahn.Customers.Domain.Aggregates
 {
     public interface ICustomerRepository : IRepository<Customer>
     {

@@ -1,4 +1,4 @@
-namespace Hahn.Customer.Api
+namespace Hahn.Customers.Api
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Hahn.Customer.Domain.Events
+namespace Hahn.Customers.Domain.Events
 {
     public class CustomerDeletedDomainEvent : INotification
     {

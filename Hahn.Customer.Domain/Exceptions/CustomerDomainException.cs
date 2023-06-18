@@ -1,4 +1,4 @@
-﻿namespace Hahn.Customer.Domain.Exceptions
+﻿namespace Hahn.Customers.Domain.Exceptions
 {
     public class CustomerDomainException : Exception
     {

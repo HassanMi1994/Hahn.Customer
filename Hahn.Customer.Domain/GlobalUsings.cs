@@ -1,7 +1,7 @@
-﻿global using Hahn.Customer.Domain.Abstractions;
-global using Hahn.Customer.Domain.Aggregates;
-global using Hahn.Customer.Domain.Events;
-global using Hahn.Customer.Domain.Exceptions;
+﻿global using Hahn.Customers.Domain.Abstractions;
+global using Hahn.Customers.Domain.Aggregates;
+global using Hahn.Customers.Domain.Events;
+global using Hahn.Customers.Domain.Exceptions;
 global using System;
 global using System.Collections.Generic;
 global using System.Linq;

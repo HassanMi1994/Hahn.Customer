@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hahn.Customer.Api", "Hahn.Customer.Api\Hahn.Customer.Api.csproj", "{B89D43AA-868A-4829-9CA8-3F44A2AF328F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hahn.Customers.Api", "Hahn.Customer.Api\Hahn.Customers.Api.csproj", "{B89D43AA-868A-4829-9CA8-3F44A2AF328F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{19587069-E819-4769-BCBE-EDFF38CBBDC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customer", "Customer", "{CFB71B00-FF9C-4AA5-81DF-EC73BA19C280}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hahn.Customer.Domain", "Hahn.Customer.Domain\Hahn.Customer.Domain.csproj", "{977A801B-1AC8-488C-B836-D174B48DF633}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hahn.Customers.Domain", "Hahn.Customer.Domain\Hahn.Customers.Domain.csproj", "{977A801B-1AC8-488C-B836-D174B48DF633}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hahn.Customer.Infrastructure", "Hahn.Customer.Infrastructure\Hahn.Customer.Infrastructure.csproj", "{F385D6FF-C2FE-4F98-A3EB-518374650DF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hahn.Customers.Infrastructure", "Hahn.Customer.Infrastructure\Hahn.Customers.Infrastructure.csproj", "{F385D6FF-C2FE-4F98-A3EB-518374650DF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

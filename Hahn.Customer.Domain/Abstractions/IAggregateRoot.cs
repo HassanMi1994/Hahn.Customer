@@ -1,4 +1,4 @@
-﻿namespace Hahn.Customer.Domain.Abstractions
+﻿namespace Hahn.Customers.Domain.Abstractions
 {
     public interface IAggregateRoot
     {

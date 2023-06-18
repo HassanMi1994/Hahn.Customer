@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
 
-namespace Hahn.Customer.Domain.Abstractions
+namespace Hahn.Customers.Domain.Abstractions
 {
     public abstract class Entity
     {

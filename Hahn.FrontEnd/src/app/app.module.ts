@@ -21,7 +21,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-
   ],
   exports: [
   ],
