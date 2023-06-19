@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Hahn.Customers.Infrastructure
 {
-    static class MediatorExtension
+   public static class MediatorExtension
     {
         public static async Task DispatchDomainEventsAsync(this IMediator mediator, CustomerContext ctx)
         {

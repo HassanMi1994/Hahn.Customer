@@ -9,6 +9,21 @@ namespace Hahn.Customers.Infrastructure
 {
     public class CustomerContext : DbContext, IUnitOfWork
     {
+        public string DbPath { get; }
+
+        public CustomerContext()
+        {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            DbPath = Path.Join(path, "customers.db");
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //  optionsBuilder.UseSqlite($"DataSource={DbPath}");
+            base.OnConfiguring(optionsBuilder);
+        }
+
         public DbSet<Customer> Customers { get; set; }
 
         private readonly IMediator _mediator;
