@@ -44,6 +44,12 @@ namespace Hahn.Customers.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
+            app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
             SqliteConfiguration.MigrateDbBeforeRunningApp(app);//useful for docker container.

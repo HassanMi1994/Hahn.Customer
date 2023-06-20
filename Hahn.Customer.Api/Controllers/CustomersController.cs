@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hahn.Customers.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
@@ -14,36 +14,36 @@ namespace Hahn.Customers.Api.Controllers
 
         public CustomersController(IMediator mediator) => _mediator = mediator;
 
-
-        [Route("/Customers")]
+        [Route("customers")]
         [HttpGet]
         public async Task<IEnumerable<Customer>> Put()
         {
+            Thread.Sleep(10000);
             return await _mediator.Send(new GetCustomersQuery());
         }
 
-        [Route("/Customers/{customerId}")]
+        [Route("customers/{customerId}")]
         [HttpGet]
         public async Task<Customer> GetCustomerById(int customerId)
         {
             return await _mediator.Send(new GetCustomerByIdQuery(customerId));
         }
 
-        [Route("Create")]
+        [Route("customers/create")]
         [HttpPost]
         public async Task<Customer> Create([FromBody] CreateCustomerCommand command)
         {
             return await _mediator.Send(command);
         }
 
-        [Route("Put")]
+        [Route("customers/put")]
         [HttpPut]
         public async Task<Customer> Put([FromBody] UpdateCustomerCommand cmd)
         {
             return await _mediator.Send(cmd);
         }
 
-        [Route("Delete/{id}")]
+        [Route("customers/delete/{id}")]
         [HttpDelete]
         public async Task<bool> Delete(int id)
         {
