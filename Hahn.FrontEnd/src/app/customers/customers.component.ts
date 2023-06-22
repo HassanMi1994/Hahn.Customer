@@ -3,11 +3,13 @@ import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { Customer } from '../models/customer';
 import { CustomerService } from '../customer.service';
+import { slideInAnimation } from '../animation';
+import { style, transition, trigger,animate } from '@angular/animations';
 
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.scss']
+  styleUrls: ['./customers.component.scss'],
 })
 export class CustomersComponent {
   loadCompelete=false;

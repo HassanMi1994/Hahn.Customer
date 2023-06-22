@@ -1,4 +1,5 @@
-﻿using Hahn.Customers.Domain.Abstractions;
+﻿using Hahn.Customers.CustomerDomain.Events;
+using Hahn.Customers.Domain.Abstractions;
 
 namespace Hahn.Customers.Domain.Aggregates
 {
@@ -25,6 +26,19 @@ namespace Hahn.Customers.Domain.Aggregates
             AddCustomerInitializedDomainEvent();
         }
 
+        public void UpdateValues(int id, string firstName, string lastName, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber)
+        {
+            base.Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            BankAccountNumber = bankAccountNumber;
+            ValidateModel();
+            AddCustomerUpdatedDomainEvent();
+        }
+
         public override void ValidateModel()
         {
             if (DateOfBirth.Year < 1950 || DateOfBirth.Year > DateTime.UtcNow.Year)
@@ -38,6 +52,12 @@ namespace Hahn.Customers.Domain.Aggregates
         {
             var customerInitializedDomainEvent = new CustomerInitializedDomainEvent(FirstName, LastName, DateOfBirth, PhoneNumber, Email, BankAccountNumber);
             AddDomainEvent(customerInitializedDomainEvent);
+        }
+
+        private void AddCustomerUpdatedDomainEvent()
+        {
+            var cu = new CustomerUpdatedDomainEvent(Id, FirstName, LastName, DateOfBirth, PhoneNumber, Email, BankAccountNumber);
+            AddDomainEvent(cu);
         }
 
         public void SetAsDeleted() => IsDeleted = true;

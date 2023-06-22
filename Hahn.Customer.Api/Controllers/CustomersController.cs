@@ -18,7 +18,7 @@ namespace Hahn.Customers.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Customer>> Put()
         {
-            Thread.Sleep(10000);
+            Thread.Sleep(700);
             return await _mediator.Send(new GetCustomersQuery());
         }
 

@@ -1,7 +1,9 @@
 <app-header></app-header>
 
-<div class="content-placeholder">
-    <router-outlet></router-outlet>
+
+<!-- <div class="content-placeholder"  [@routeAnimations]="prepareRouteTransition(outlet)" > -->
+<div class="content-placeholder" [@routeAnimations]="outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']">
+    <router-outlet #outlet="outlet"></router-outlet>
 </div>
 
 <app-footer></app-footer>

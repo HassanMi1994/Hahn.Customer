@@ -44,12 +44,12 @@ namespace Hahn.Customers.Infrastructure.Repositories
 
         public async Task<IEnumerable<Customer>> GetCustomersAsync()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Customers.Where(x => !x.IsDeleted).ToListAsync();
         }
 
         public Task<Customer> GetByIdAsync(int customerID)
         {
-            return _context.Customers.Where(x=>x.Id==customerID).FirstOrDefaultAsync();
+            return _context.Customers.Where(x => x.Id == customerID && !x.IsDeleted).FirstOrDefaultAsync();
         }
 
         /// <summary>

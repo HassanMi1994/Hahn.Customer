@@ -19,14 +19,9 @@ namespace Hahn.Customers.Infrastructure.CQRS.Commands.Handlers
         {
             var customerInDb = await _customerRepository.GetByIdAsync(request.Id);
             if (customerInDb == null) throw new Exception("This customer id does not exist");
-            UpdateValuesIfChanged(request, customerInDb);
+            customerInDb.UpdateValues(request.Id, request.FirstName, request.LastName, request.DateOfBirth, request.PhoneNumber, request.Email, request.BankAccountNumber);
             await _customerRepository.UnitOfWork.SaveEntitiesAsync();
             return customerInDb;
-        }
-
-        private static void UpdateValuesIfChanged(UpdateCustomerCommand request, Customer customerInDb)
-        {
-            //todo: write the update process, and raise the appropriate event!
         }
     }
 }

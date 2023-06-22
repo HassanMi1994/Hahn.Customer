@@ -17,5 +17,10 @@ namespace Hahn.Customers.Infrastructure.CQRS.Commands
         public string Email { get; set; }
 
         public string BankAccountNumber { get; set; }
+
+        public Customer ConvertToCustomer()
+        {
+            return new Customer(FirstName,LastName, DateOfBirth, PhoneNumber, Email, BankAccountNumber);
+        }
     }
 }
