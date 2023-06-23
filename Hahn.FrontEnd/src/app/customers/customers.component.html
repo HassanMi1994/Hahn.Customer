@@ -33,9 +33,15 @@
                     <td><ngb-highlight [result]="customer.bankAccountNumber" [term]="filter.value"></ngb-highlight></td>
                     <td><button class=""><a href="{{'/customers/details/'+customer.id}}">Details</a></button></td>
                     <td><button class=""><a href="{{'/customers/edit/'+customer.id}}">Edit</a></button></td>
-                    <td> <button>Delete</button></td>
+                    <td><span class="btn btn-danger" (click)="deleteCustomer(customer.id)">Delete </span> </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<div *ngIf="displayDeleteModal">
+    <app-delete-customer [cust]="deleteModel" (closeTheModal)="showDeleteModal($event)"></app-delete-customer>
+</div>
+
+

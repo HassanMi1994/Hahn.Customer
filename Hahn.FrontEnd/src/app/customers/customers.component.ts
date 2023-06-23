@@ -4,7 +4,9 @@ import { Observable, map, startWith } from 'rxjs';
 import { Customer } from '../models/customer';
 import { CustomerService } from '../customer.service';
 import { slideInAnimation } from '../animation';
-import { style, transition, trigger,animate } from '@angular/animations';
+import { style, transition, trigger, animate } from '@angular/animations';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import { modalModel } from './delete-customer/modalModel';
 
 @Component({
   selector: 'app-customers',
@@ -12,17 +14,17 @@ import { style, transition, trigger,animate } from '@angular/animations';
   styleUrls: ['./customers.component.scss'],
 })
 export class CustomersComponent {
-  loadCompelete=false;
+  loadCompelete = false;
   customers: Customer[] = [];
   public customers$ = new Observable<Customer[]>;
   public filter: FormControl = new FormControl('', { nonNullable: true });
 
   constructor(private customerService: CustomerService) {
 
-    this.customers$ =  customerService.getAllCustomers();
-    this.customers$.subscribe(x =>{
+    this.customers$ = customerService.getAllCustomers();
+    this.customers$.subscribe(x => {
       this.customers = x;
-      this.loadCompelete=true;
+      this.loadCompelete = true;
     });
 
     this.customers$ = this.filter.valueChanges.pipe(
@@ -30,6 +32,18 @@ export class CustomersComponent {
       map(text => this.search(text))
     );
 
+  }
+
+  displayDeleteModal=false;
+  deleteModel:Customer;
+  deleteCustomer(id:string)
+  {
+   this.deleteModel= this.customers.find(x=>x.id==id) as Customer;
+   this.displayDeleteModal=true;
+  }
+
+  showDeleteModal(hide:boolean){
+    this.displayDeleteModal=hide;
   }
 
   search(text: string): Customer[] {
@@ -44,6 +58,6 @@ export class CustomersComponent {
       );
     });
   }
-}
 
+}
 

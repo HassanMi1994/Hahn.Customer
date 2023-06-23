@@ -7,7 +7,7 @@ import { Customer } from './models/customer';
   providedIn: 'root'
 })
 export class CustomerService {
- 
+
 
   private baseURL = `https://localhost:7268/api`
 
@@ -19,17 +19,19 @@ export class CustomerService {
     return this.http.get<Customer[]>(`${this.baseURL}/customers`);
   }
 
-  getCustomerById(id:number)
-  {
+  getCustomerById(id: number) {
     return this.http.get<Customer>(`${this.baseURL}/customers/${id}`);
   }
 
-  create(customer:Customer)
-  {
-    return this.http.post<Customer>(`${this.baseURL}/customers/create/`,customer);
-  } 
-  
-  update(customer: Customer) {
-    return this.http.put<Customer>(`${this.baseURL}/customers/put/`,customer)
-    }
+  create(customer: Customer) {
+    return this.http.post<Customer>(`${this.baseURL}/customers/create/`, customer);
   }
+
+  update(customer: Customer) {
+    return this.http.put<Customer>(`${this.baseURL}/customers/put/`, customer)
+  }
+
+  delete(customer: Customer) {
+    return this.http.delete<boolean>(`${this.baseURL}/customers/delete/${customer.id}`);
+  }
+}

@@ -60,7 +60,11 @@ namespace Hahn.Customers.Domain.Aggregates
             AddDomainEvent(cu);
         }
 
-        public void SetAsDeleted() => IsDeleted = true;
+        public void SetAsDeleted()
+        {
+            IsDeleted = true;
+            AddDomainEvent(new CustomerDeletedDomainEvent(Id));
+        }
 
     }
 }

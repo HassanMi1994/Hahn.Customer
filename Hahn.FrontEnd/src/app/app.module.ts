@@ -10,13 +10,14 @@ import { ReactiveFormsModule, NgForm } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './interceptor/loading.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { CustomerDetailsComponent } from './customer-details/customer-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TestPageComponent } from './test-page/test-page.component';
 import { ReadableTitleCase } from './pipes/readableTitleCase';
 import { CustomerAddEditComponent } from './customer-add-edit/customer-add-edit.component';
-
+import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { DeleteCustomerComponent } from './customers/delete-customer/delete-customer.component';
 
 
 @NgModule({
@@ -30,21 +31,27 @@ import { CustomerAddEditComponent } from './customer-add-edit/customer-add-edit.
     TestPageComponent,
     ReadableTitleCase,
     CustomerAddEditComponent,
+    DeleteCustomerComponent,
   ],
   imports: [
 
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-   ReactiveFormsModule,
-   //  NgModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+    ToastrModule.forRoot({positionClass: 'toast-bottom-left', timeOut: 5000})
   ],
-  exports: [
+exports: [
+],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }],
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+
+}

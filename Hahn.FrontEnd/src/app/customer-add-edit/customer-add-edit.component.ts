@@ -1,10 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Customer } from '../models/customer';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CustomerService } from '../customer.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustomerValidator } from '../models/customerValidation';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-add-edit',
@@ -18,8 +19,13 @@ export class CustomerAddEditComponent implements OnInit {
   isReady = false;
   id: number;
 
-  constructor(private route: ActivatedRoute, private customerService: CustomerService, private fb: FormBuilder, private loacation:Location) {
-
+  constructor(
+    private customerService: CustomerService,
+    private fb: FormBuilder,
+    private loacation: Location,
+    private route: ActivatedRoute,
+    private router:Router,
+    private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -51,32 +57,33 @@ export class CustomerAddEditComponent implements OnInit {
     var cust = new Customer(this.form.value);
     var isValidForm = this.validateForm(cust);
 
-    if (isValidForm)
-    {
+    if (isValidForm) {
       if (this.id != null || this.id !== undefined) {
         this.customerService.update(cust)
-        .subscribe(response => {
-          console.info(response);
-        },
-          error => {
-            console.log(error)
-          }
-        );
-      }
-      else {
-        this.customerService.create(cust)
           .subscribe(response => {
-            console.info(response);
+            console.log('successfuly updated');
+            this.toastr.success(`customer '${this.customer.firstName} ${this.customer.lastName}' successfuly updated!`, 'Success operation!');
+            this.router.navigateByUrl('/customers');
           },
             error => {
               console.log(error)
             }
           );
-        }
-        this.loacation.back();
-        //todo: show message
+      }
+      else {
+        this.customerService.create(cust)
+          .subscribe(response => {
+            console.log('successfuly inserted');
+            this.toastr.success(`New customer '${this.customer.firstName} ${this.customer.lastName}' successfuly added!`, 'Success operation!');
+            this.router.navigateByUrl('/customers'); 
+          },
+            error => {
+              console.log(error)
+            }
+          );
+      }
     }
-        
+
   }
 
   private validateForm(cust: Customer) {

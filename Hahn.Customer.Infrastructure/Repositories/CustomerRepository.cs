@@ -59,7 +59,9 @@ namespace Hahn.Customers.Infrastructure.Repositories
         /// <returns></returns>
         public Task<bool> DeleteAsync(int customerId)
         {
-            //todo: complete soft delete
+          var customer=  _context.Customers.FirstOrDefault(x => x.Id == customerId);
+            if (customer == null) return Task.FromResult(false);
+            customer.SetAsDeleted();
             return Task.FromResult(true);
         }
     }
