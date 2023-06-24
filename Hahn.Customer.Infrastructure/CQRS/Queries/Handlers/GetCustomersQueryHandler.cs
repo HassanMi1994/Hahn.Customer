@@ -1,10 +1,11 @@
-﻿using Hahn.Customers.Domain.Aggregates;
+﻿using Hahn.Customers.Domain;
+using Hahn.Customers.Domain.Aggregates;
 using Hahn.Customers.Infrastructure.CQRS.Queries;
 using MediatR;
 
 namespace Hahn.Customers.Infrastructure.CQRS.Queries.Handlers
 {
-    public class GetCustomersQueryHandler : IRequestHandler<GetCustomersQuery, IEnumerable<Customer>>
+    public class GetCustomersQueryHandler : IRequestHandler<GetCustomersQuery, PaginationResponse<IEnumerable<Customer>>>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -13,9 +14,9 @@ namespace Hahn.Customers.Infrastructure.CQRS.Queries.Handlers
             _customerRepository = customerRepository;
         }
 
-        public Task<IEnumerable<Customer>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
+        public async Task<PaginationResponse<IEnumerable<Customer>>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
         {
-            return _customerRepository.GetCustomersAsync();
+            return await _customerRepository.GetCustomersAsync(request.PageSize, request.PageNumber,request.Search);
         }
     }
 }

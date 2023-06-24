@@ -20,9 +20,6 @@ namespace Hahn.Customers.Infrastructure.EfConfiguratoin
             customerConfiguration.HasIndex(x => new { x.FirstName, x.LastName, x.DateOfBirth }).IsUnique();
 
             customerConfiguration.Property(x => x.Email).HasMaxLength(50);
-
-            customerConfiguration.
-                Property(x => x.PhoneNumber);
         }
     }
 }

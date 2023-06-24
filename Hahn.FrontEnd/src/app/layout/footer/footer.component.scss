@@ -1,10 +1,15 @@
 
+body {
+  //  padding-bottom: 120px;
+}
 footer {
-    position: absolute;
+   // position: absolute;
     right: 0;
     bottom: 0;
     left: 0;
     padding: 1rem;
+    width: 100%;
+    //height: 10vh;
     text-align: center;
     background-color: rgba($color: #19161f, $alpha: 1.0);
     color: white;

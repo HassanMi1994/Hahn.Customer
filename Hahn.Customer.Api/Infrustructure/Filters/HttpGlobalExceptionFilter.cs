@@ -1,9 +1,12 @@
 ﻿using FluentValidation;
 using Hahn.Customers.Api.Infrustructure.ActionReuslts;
 using Hahn.Customers.Domain.Exceptions;
+using Hahn.Customers.Infrastructure.FluentValidations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Net;
+using System.Text.Json;
 
 namespace Hahn.Customers.Api.Infrustructure.Filters;
 public class HttpGlobalExceptionFilter : IExceptionFilter
@@ -27,7 +30,7 @@ public class HttpGlobalExceptionFilter : IExceptionFilter
         {
             HandleCustomerDomainExceptoin(context);
         }
-        if (context.Exception.GetType() == typeof(ValidationException))
+        if (context.Exception.GetType() == typeof(CustomValidationException))
         {
             // need to handle this part better.
             HandleValidationException(context);
@@ -41,17 +44,14 @@ public class HttpGlobalExceptionFilter : IExceptionFilter
 
     private static void HandleValidationException(ExceptionContext context)
     {
-        var problemDetails = new ValidationProblemDetails()
-        {
-            Instance = context.HttpContext.Request.Path,
-            Status = StatusCodes.Status400BadRequest,
-            Detail = "Please refer to the errors property for additional details."
-        };
-
-        problemDetails.Errors.Add("DomainValidations", new string[] { context.Exception.Message.ToString() });
-
-        context.Result = new BadRequestObjectResult(problemDetails);
-        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        var validationExceptoin = (CustomValidationException)context.Exception;
+        context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+        var json= new JsonResult(validationExceptoin.FlatErrors,
+            new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+        context.Result = json;
     }
 
     private void HandleUnkonwnException(ExceptionContext context)

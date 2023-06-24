@@ -20,7 +20,7 @@ namespace Hahn.Customers.Infrastructure.CQRS.Commands
 
         public Customer ConvertToCustomer()
         {
-            return new Customer(FirstName,LastName, DateOfBirth, PhoneNumber, Email, BankAccountNumber);
+            return new Customer(FirstName,LastName, DateOfBirth, Email, BankAccountNumber);
         }
     }
 }

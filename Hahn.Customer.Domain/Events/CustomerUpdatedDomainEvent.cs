@@ -12,13 +12,12 @@ namespace Hahn.Customers.CustomerDomain.Events
         public string Email { get; }
         public string BankAccountNumber { get; }
 
-        public CustomerUpdatedDomainEvent(int id, string firstName, string lastName, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber)
+        public CustomerUpdatedDomainEvent(int id, string firstName, string lastName, DateTime dateOfBirth, string email, string bankAccountNumber)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
-            PhoneNumber = phoneNumber;
             Email = email;
             BankAccountNumber = bankAccountNumber;
         }

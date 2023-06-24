@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustomerValidator } from '../models/customerValidation';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { ValidationErrors } from 'fluentvalidation-ts';
 
 @Component({
   selector: 'app-customer-add-edit',
@@ -24,7 +25,7 @@ export class CustomerAddEditComponent implements OnInit {
     private fb: FormBuilder,
     private loacation: Location,
     private route: ActivatedRoute,
-    private router:Router,
+    private router: Router,
     private toastr: ToastrService) {
   }
 
@@ -47,7 +48,7 @@ export class CustomerAddEditComponent implements OnInit {
       id: [''],
       firstName: ['',],
       lastName: [''],
-      dateOfBirth: [Date,],
+      dateOfBirth: ['',],
       email: [''],
       bankAccountNumber: ['']
     });
@@ -66,7 +67,8 @@ export class CustomerAddEditComponent implements OnInit {
             this.router.navigateByUrl('/customers');
           },
             error => {
-              console.log(error)
+              console.log(error);
+              this.checkErrors(error.error);
             }
           );
       }
@@ -75,10 +77,11 @@ export class CustomerAddEditComponent implements OnInit {
           .subscribe(response => {
             console.log('successfuly inserted');
             this.toastr.success(`New customer '${this.customer.firstName} ${this.customer.lastName}' successfuly added!`, 'Success operation!');
-            this.router.navigateByUrl('/customers'); 
+            this.router.navigateByUrl('/customers');
           },
             error => {
               console.log(error)
+              this.checkErrors(error.error);
             }
           );
       }
@@ -89,8 +92,12 @@ export class CustomerAddEditComponent implements OnInit {
   private validateForm(cust: Customer) {
     var d = new CustomerValidator();
     var errors = d.validate(cust);
-    if (Object.keys(errors).length > 0) {
-      console.error('error exist');
+    this.checkErrors(errors);
+    return Object.keys(errors).length == 0;
+  }
+
+  private checkErrors(errors:ValidationErrors<Customer>) {
+    if (Object.keys( errors).length > 0) {
       var keyValueErrors = Object.entries(errors);
       Object.keys(errors).forEach((prop: string) => {
         var errorMessage = keyValueErrors.find(x => x[0] == prop)?.[1];
@@ -104,6 +111,5 @@ export class CustomerAddEditComponent implements OnInit {
         }
       });
     }
-    return Object.keys(errors).length == 0;
   }
 }

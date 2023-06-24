@@ -1,4 +1,5 @@
-﻿using Hahn.Customers.Domain.Abstractions;
+﻿using Hahn.Customers.Domain;
+using Hahn.Customers.Domain.Abstractions;
 using Hahn.Customers.Domain.Aggregates;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,9 +43,21 @@ namespace Hahn.Customers.Infrastructure.Repositories
             _context.Entry(attched).State = EntityState.Modified;
         }
 
-        public async Task<IEnumerable<Customer>> GetCustomersAsync()
+        public async Task<PaginationResponse<IEnumerable<Customer>>> GetCustomersAsync(int pageSize, int pageNumber, string search = "")
         {
-            return await _context.Customers.Where(x => !x.IsDeleted).ToListAsync();
+            var result = new PaginationResponse<IEnumerable<Customer>>();
+            var data = _context.Customers.Where(x => !x.IsDeleted);
+            if (!string.IsNullOrEmpty(search))
+            {
+                data = data.Where(x =>
+                x.FirstName.ToLower().Contains(search.ToLower()) ||
+                x.LastName.ToLower().Contains(search.ToLower()) ||
+                x.BankAccountNumber.ToLower().Contains(search.ToLower()) ||
+                x.Email.ToLower().Contains(search.ToLower()));
+            }
+            result.Data = data.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+            result.TotalSize = await data.CountAsync();
+            return result;
         }
 
         public Task<Customer> GetByIdAsync(int customerID)
@@ -59,7 +72,7 @@ namespace Hahn.Customers.Infrastructure.Repositories
         /// <returns></returns>
         public Task<bool> DeleteAsync(int customerId)
         {
-          var customer=  _context.Customers.FirstOrDefault(x => x.Id == customerId);
+            var customer = _context.Customers.FirstOrDefault(x => x.Id == customerId);
             if (customer == null) return Task.FromResult(false);
             customer.SetAsDeleted();
             return Task.FromResult(true);

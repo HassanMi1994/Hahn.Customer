@@ -1,11 +1,11 @@
 <div>
     <div *ngIf="loadCompelete">
         <form>
-            <div class="col-xs-3 col-sm-12">
-                <div class="mb-3 row">
-                    <a class="btn btn-info" routerLink="/customers/new">New Customer</a>
+            <div class="row">
+                <div class="col-3">
+                    <a class="btn btn-outline-info" routerLink="/customers/new">+ New Customer</a>
                 </div>
-                <div class="mb-3 row">
+                <div class="col-9">
                     <input id="table-filtering-search" placeholder="Search in table (All Columns)" class="form-control"
                         type="text" [formControl]="filter" />
                 </div>
@@ -20,28 +20,31 @@
                     <th scope="col">Last Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Account No.</th>
+                    <th scope="col">View Details</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let customer of  customers$ | async ; index as i">
-                    <th scope="row">{{ i + 1 }}</th>
+                    <th scope="row">{{ (currentPage-1)*reqModel.pageSize + i+1 }}</th>
                     <td><ngb-highlight [result]="customer.firstName" [term]="filter.value"></ngb-highlight></td>
                     <td><ngb-highlight [result]="customer.lastName " [term]="filter.value"></ngb-highlight></td>
                     <td><ngb-highlight [result]="customer.email " [term]="filter.value"></ngb-highlight></td>
                     <td><ngb-highlight [result]="customer.bankAccountNumber" [term]="filter.value"></ngb-highlight></td>
-                    <td><button class=""><a href="{{'/customers/details/'+customer.id}}">Details</a></button></td>
-                    <td><button class=""><a href="{{'/customers/edit/'+customer.id}}">Edit</a></button></td>
-                    <td><span class="btn btn-danger" (click)="deleteCustomer(customer.id)">Delete </span> </td>
+                    <td><button class="btn btn-outline-info"><a style="text-decoration:none" href="{{'/customers/details/'+customer.id}}">Details</a></button></td>
+                    <td><button class="btn btn-outline-info"><a style="text-decoration:none" href="{{'/customers/edit/'+customer.id}}">Edit</a></button></td>
+                    <td><span class="btn btn-outline-danger" (click)="deleteCustomer(customer.id)">Delete </span> </td>
                 </tr>
             </tbody>
         </table>
+       
+        <ngb-pagination class="col-12"  #numPagesExp [collectionSize]="totalRecordSize" [(page)]="currentPage"
+         [maxSize]="5" [rotate]="true" [pageSize]="reqModel.pageSize" [boundaryLinks]="true" (pageChange)="pageChanged()" ></ngb-pagination>
+        <pre><span class="float-md-left">Page: {{currentPage}}/{{ math.ceil(totalRecordSize/reqModel.pageSize)}}</span></pre>
     </div>
 </div>
 
 <div *ngIf="displayDeleteModal">
     <app-delete-customer [cust]="deleteModel" (closeTheModal)="showDeleteModal($event)"></app-delete-customer>
 </div>
-
-

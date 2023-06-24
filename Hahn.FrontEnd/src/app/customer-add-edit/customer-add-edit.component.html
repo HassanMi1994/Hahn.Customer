@@ -1,6 +1,6 @@
 
 <h2 *ngIf="isReady">
-    <span> {{isEdit?"Edit":"New Customer "}} {{customer.firstName}} {{customer.lastName}} </span>
+    <span> <i>{{isEdit?"Edit":"New Customer "}}</i> <b class="text text-info"> {{customer.firstName}} {{customer.lastName}} </b></span>
 </h2>
 
 <form  [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -13,13 +13,13 @@
 
     <div class="form-group">
         <label>Last Name</label>
-        <input type="text" formControlName="lastName" class="form-control" />
+        <input type="text" formControlName="lastName"  class="form-control" />
         <span class="text-danger" *ngIf="form.get('lastName')?.errors">{{form.get('lastName')?.getError('clientError')}}</span>
     </div>
 
     <div class="form-group">
         <label>Date of Birth</label>
-        <input type="date" formControlName="dateOfBirth" class="form-control" />
+        <input type="date" formControlName="dateOfBirth" [ngModel]="form.get('dateOfBirth')?.value|date:'yyyy-MM-dd'" class="form-control" />
         <span class="text-danger" *ngIf="form.get('dateOfBirth')?.errors">{{form.get('dateOfBirth')?.getError('clientError')}}</span>
     </div>
 

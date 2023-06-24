@@ -35,7 +35,7 @@ namespace Hahn.Customers.Infrastructure.FluentValidations
 
             if (errorsDictionary.Any())
             {
-                throw new ValidationException(string.Join(", ", errorsDictionary));
+                throw new CustomValidationException(errorsDictionary);
             }
 
             return await next();

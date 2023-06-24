@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Customer } from './models/customer';
+import { RequestModel } from './models/RequestModel';
+import { ResponseModel } from './models/ResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,9 @@ export class CustomerService {
 
   }
 
-  getAllCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`${this.baseURL}/customers`);
+  getCustomers(reqModel:RequestModel): Observable<ResponseModel<Customer[]>> {
+    var searchPart=reqModel.search==""?"":`/search/${reqModel.search}`
+    return this.http.get<ResponseModel<Customer[]>>(`${this.baseURL}/customers/page-size/${reqModel.pageSize}/page-number/${reqModel.pageNumber}${searchPart}`);
   }
 
   getCustomerById(id: number) {
