@@ -61,9 +61,9 @@ export class CustomerAddEditComponent implements OnInit {
     if (isValidForm) {
       if (this.id != null || this.id !== undefined) {
         this.customerService.update(cust)
-          .subscribe(response => {
+          .subscribe((customer:Customer) => {
             console.log('successfuly updated');
-            this.toastr.success(`customer '${this.customer.firstName} ${this.customer.lastName}' successfuly updated!`, 'Success operation!');
+            this.toastr.success(`customer '${customer.firstName} ${customer.lastName}' successfuly updated!`, 'Success operation!');
             this.router.navigateByUrl('/customers');
           },
             error => {
@@ -74,9 +74,9 @@ export class CustomerAddEditComponent implements OnInit {
       }
       else {
         this.customerService.create(cust)
-          .subscribe(response => {
+          .subscribe((response:Customer) => {
             console.log('successfuly inserted');
-            this.toastr.success(`New customer '${this.customer.firstName} ${this.customer.lastName}' successfuly added!`, 'Success operation!');
+            this.toastr.success(`New customer '${response.firstName} ${response.lastName}' successfuly added!`, 'Success operation!');
             this.router.navigateByUrl('/customers');
           },
             error => {

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Customer } from './models/customer';
 import { RequestModel } from './models/RequestModel';
 import { ResponseModel } from './models/ResponseModel';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,14 @@ import { ResponseModel } from './models/ResponseModel';
 export class CustomerService {
 
 
-  private baseURL = `https://localhost:7268/api`
+  private baseURL = environment.apiUrl;
 
   constructor(private http: HttpClient) {
 
   }
 
   getCustomers(reqModel:RequestModel): Observable<ResponseModel<Customer[]>> {
+    
     var searchPart=reqModel.search==""?"":`/search/${reqModel.search}`
     return this.http.get<ResponseModel<Customer[]>>(`${this.baseURL}/customers/page-size/${reqModel.pageSize}/page-number/${reqModel.pageNumber}${searchPart}`);
   }

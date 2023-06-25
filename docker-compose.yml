@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  hahn-api:
+    image: ${DOCKER_REGISTRY-}hahncustomersapi
+    build:
+     context: .
+     dockerfile: ./Hahn.Customer.Api/Dockerfile
+    ports:
+      - 58333:443
+    environment:
+      ASPNETCORE_URLS: "https://+;http://+"
+      ASPNETCORE_HTTPS_PORT: 9977
+    networks: 
+      - customer_api
+
+  hahn-front:
+    image: hahnfront
+    build:
+      context: ./Hahn.FrontEnd/ #the default is '.', I have changed it so it knows when running Dockerfile, the root is the API folder.
+      dockerfile: Dockerfile
+    ports:
+    - 4280:80
+    restart: on-failure
+    networks: 
+      - customer_front
+    depends_on:
+      - hahn-api
+
+networks:
+  customer_front:
+     driver: bridge
+  customer_api:
+     driver: bridge

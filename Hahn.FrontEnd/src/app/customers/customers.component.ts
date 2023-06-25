@@ -1,6 +1,6 @@
-import { Component, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, map, of, startWith } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Customer } from '../models/customer';
 import { CustomerService } from '../customer.service';
 import { slideInAnimation } from '../animation';
@@ -15,7 +15,7 @@ import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
 })
-export class CustomersComponent implements OnChanges, OnInit {
+export class CustomersComponent implements OnInit {
   loadCompelete = false;
   customers: Customer[] = [];
   public customers$ = new Observable<Customer[]>;
@@ -31,40 +31,34 @@ export class CustomersComponent implements OnChanges, OnInit {
 
   }
 
-  currentPage = 1;
-  math=Math;
+  public static currentPage = 1;
+  public custRef=CustomersComponent;
+  math = Math;
   @Output() totalRecordSize = 100;
 
   ngOnInit() {
+    console.log(`current page is:${this.custRef.currentPage}`);
     this.loadCustomerTableData();
 
-
-    this.filter.valueChanges.subscribe(
-      (x) => this.search(x));
+    //todo: cancel previous requests 
+    this.filter.valueChanges.subscribe(x=>this.search(x));
   }
 
   pageChanged() {
-    this.reqModel.pageNumber = this.currentPage;
+   
+    this.reqModel.pageNumber = CustomersComponent.currentPage;
     this.loadCustomerTableData();
   }
 
   private loadCustomerTableData() {
+    //this.pageChanged();
     this.reqRespones$ = this.customerService.getCustomers(this.reqModel);
     this.reqRespones$.subscribe(x => {
       this.customers = x.data;
       this.customers$ = of(x.data);
       this.totalRecordSize = x.totalSize;
-      //this.paginationComp.collectionSize=x.totalSize;
       this.loadCompelete = true;
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    let currentPaginationNumber = changes['currentPage'].currentValue;
-    if (currentPaginationNumber != this.reqModel.pageNumber) {
-      this.reqModel.pageNumber = currentPaginationNumber;
-      this.loadCustomerTableData();
-    }
   }
 
   displayDeleteModal = false;
