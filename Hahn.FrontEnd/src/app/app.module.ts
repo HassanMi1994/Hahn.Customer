@@ -11,14 +11,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingInterceptor } from './interceptor/loading.interceptor';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
-import { CustomerDetailsComponent } from './customer-details/customer-details.component';
+import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TestPageComponent } from './test-page/test-page.component';
 import { ReadableTitleCase } from './pipes/readableTitleCase';
-import { CustomerAddEditComponent } from './customer-add-edit/customer-add-edit.component';
-import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { CustomerAddEditComponent } from './customers/customer-add-edit/customer-add-edit.component';
+import { ToastrModule } from 'ngx-toastr';
 import { DeleteCustomerComponent } from './customers/delete-customer/delete-customer.component';
-
 
 @NgModule({
   declarations: [
@@ -26,12 +24,11 @@ import { DeleteCustomerComponent } from './customers/delete-customer/delete-cust
     FooterComponent,
     AppComponent,
     CustomersComponent,
-    SpinnerComponent,
-    CustomerDetailsComponent,
-    TestPageComponent,
-    ReadableTitleCase,
     CustomerAddEditComponent,
+    CustomerDetailsComponent,
     DeleteCustomerComponent,
+    ReadableTitleCase,
+    SpinnerComponent,
   ],
   imports: [
 
@@ -42,16 +39,13 @@ import { DeleteCustomerComponent } from './customers/delete-customer/delete-cust
     HttpClientModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    ToastrModule.forRoot({positionClass: 'toast-bottom-left', timeOut: 5000})
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-left', timeOut: 5000 })
   ],
-exports: [
-],
+  exports: [],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
-    bootstrap: [AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
-
-
 }

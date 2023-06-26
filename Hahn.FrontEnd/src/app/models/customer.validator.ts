@@ -1,5 +1,5 @@
 import { Validator } from 'fluentvalidation-ts';
-import {Customer} from './customer'
+import {Customer} from './customer.model'
 export class CustomerValidator extends Validator<Customer>
 {
     constructor(){

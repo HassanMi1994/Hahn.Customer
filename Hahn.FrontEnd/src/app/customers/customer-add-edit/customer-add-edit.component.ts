@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Customer } from '../models/customer';
+import { Customer } from '../../models/customer.model';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { CustomerService } from '../customer.service';
+import { CustomerService } from '../../services/customer.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { CustomerValidator } from '../models/customerValidation';
+import { CustomerValidator } from '../../models/customer.validator';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { ValidationErrors } from 'fluentvalidation-ts';
@@ -62,12 +62,10 @@ export class CustomerAddEditComponent implements OnInit {
       if (this.id != null || this.id !== undefined) {
         this.customerService.update(cust)
           .subscribe((customer: Customer) => {
-            console.log('successfuly updated');
             this.toastr.success(`customer '${customer.firstName} ${customer.lastName}' successfuly updated!`, 'Success operation!');
             this.router.navigateByUrl('/customers');
           },
             error => {
-              console.log(error);
               this.checkErrors(error.error);
             }
           );
@@ -75,12 +73,10 @@ export class CustomerAddEditComponent implements OnInit {
       else {
         this.customerService.create(cust)
           .subscribe((response: Customer) => {
-            console.log('successfuly inserted');
             this.toastr.success(`New customer '${response.firstName} ${response.lastName}' successfuly added!`, 'Success operation!');
             this.router.navigateByUrl('/customers');
           },
             error => {
-              console.log(error)
               this.checkErrors(error.error);
             }
           );

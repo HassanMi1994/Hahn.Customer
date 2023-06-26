@@ -1,9 +1,7 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
-import { slideInAnimation } from '../animation';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerService } from '../customer.service';
-import { Customer } from '../models/customer';
+import { CustomerService } from '../../services/customer.service';
+import { Customer } from '../../models/customer.model';
 
 @Component({
   selector: 'app-customer-details',
@@ -20,7 +18,6 @@ export class CustomerDetailsComponent {
         this.isLoaded = true;
         this.customer = x;
       });
-      console.log(params['id']);
     });
   }
 

@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription, of } from 'rxjs';
-import { Customer } from '../models/customer';
-import { CustomerService } from '../customer.service';
-import { ResponseModel } from '../models/ResponseModel';
+import { Customer } from '../models/customer.model';
+import { CustomerService } from '../services/customer.service';
+import { ResponseModel } from '../models/response-model';
 
 @Component({
   selector: 'app-customers',
@@ -29,10 +29,9 @@ export class CustomersComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    console.log(`current page is:${this.currentPage}`);
+  ngOnInit() { 
     this.loadCustomerTableData();
-
+    this.filter.setValue(this.customerService.paginationStore.search)
     this.filter.valueChanges.subscribe(x => this.search(x));
   }
 
@@ -68,9 +67,6 @@ export class CustomersComponent implements OnInit {
   }
 
   search(text: string) {
-    // if (this.lastSearchRequest && !this.lastSearchRequest.closed) {
-    //   this.lastSearchRequest.unsubscribe();
-    // }
     const term = text.toLowerCase();
     this.customerService.paginationStore.search = term;
     this.loadCustomerTableData();

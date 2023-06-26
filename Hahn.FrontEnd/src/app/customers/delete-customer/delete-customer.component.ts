@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { modalModel } from './modalModel';
-import { Customer } from 'src/app/models/customer';
-import { CustomerService } from 'src/app/customer.service';
+import { Customer } from 'src/app/models/customer.model';
+import { CustomerService } from 'src/app/services/customer.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -29,14 +28,12 @@ export class DeleteCustomerComponent implements OnInit {
   }
 
   onDelete(){
-    this.customerService.delete(this.cust).subscribe(x=>{
+    this.customerService.delete(this.cust).subscribe(response=>{
       this.toastr.warning(`${this.cust.firstName} ${this.cust.lastName} was successfuly deleted.`,'Success delete operation');
-    },(x=>{
+    },(error=>{
       this.toastr.warning(`${this.cust.firstName} ${this.cust.lastName} was not deleted.`,'Error in delete operation')
     }))
-    console.log(this.cust);
     this.closeTheModal.emit(false);
-    //todo: raise the 
   }
 }
 
