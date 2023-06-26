@@ -4,8 +4,10 @@
 </h2>
 
 <form  [formGroup]="form" (ngSubmit)="onSubmit()">
-   <div class="row">
-    <div class="col-5">
+   <div class="row d-felx justify-content-center ">
+
+
+    <div class="col-6">
         <input type="hidden" *ngIf="isEdit" />
         <div class="form-group col-3 input-effect">
             <label class="">First Name</label>
@@ -52,8 +54,7 @@
             <span class="focus-border"></span>
         </div>
     </div>
-    <div class="col-4">
-    </div>
+
 
    </div>
 </form>

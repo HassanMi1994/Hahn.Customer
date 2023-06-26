@@ -3,6 +3,7 @@ using System;
 using Hahn.Customers.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hahn.Customers.Infrastructure.Migrations
 {
     [DbContext(typeof(CustomerContext))]
-    partial class CustomerContextModelSnapshot : ModelSnapshot
+    [Migration("20230626162029_remove-additional-index")]
+    partial class removeadditionalindex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.7");
@@ -24,9 +27,6 @@ namespace Hahn.Customers.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("BankAccountNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateOfBirth")

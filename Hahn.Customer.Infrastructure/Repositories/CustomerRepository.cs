@@ -55,7 +55,10 @@ namespace Hahn.Customers.Infrastructure.Repositories
                 x.BankAccountNumber.ToLower().Contains(search.ToLower()) ||
                 x.Email.ToLower().Contains(search.ToLower()));
             }
-            result.Data = data.Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+            result.Data = data
+                .OrderByDescending(x => x.CreatedAt)
+                .Skip(pageSize * (pageNumber - 1))
+                .Take(pageSize);
             result.TotalSize = await data.CountAsync();
             return result;
         }

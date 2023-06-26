@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="customer.db">
+    <None Update="customer-old.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="customer.db-shm">

@@ -17,7 +17,6 @@ namespace Hahn.Customers.Infrastructure.EfConfiguratoin
             customerConfiguration.Ignore(b => b.DomainEvents);
 
             customerConfiguration.HasIndex(x => x.Email).IsUnique();
-            customerConfiguration.HasIndex(x => new { x.FirstName, x.LastName, x.DateOfBirth }).IsUnique();
 
             customerConfiguration.Property(x => x.Email).HasMaxLength(50);
         }

@@ -18,6 +18,7 @@ namespace Hahn.Customers.Infrastructure.CQRS.Commands.Handlers
         {
             var customer = new Customer(request.FirstName, request.LastName, request.DateOfBirth, request.Email, request.BankAccountNumber);
             await ThrowExcpetionIfEmailExist(customer);
+            _customerRepository.Add(customer);
             await _customerRepository.UnitOfWork.SaveChangesAsync();
             return customer;
         }

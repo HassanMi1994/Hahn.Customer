@@ -10,6 +10,7 @@ namespace Hahn.Customers.Domain.Aggregates
         public string Email { get; private set; }
         public string BankAccountNumber { get; private set; }
         public bool IsDeleted { get; private set; }
+        public DateTime CreatedAt { get; private set; }
 
         public Customer(string firstName, string lastName, DateTime dateOfBirth, string email, string bankAccountNumber)
         {
@@ -18,6 +19,7 @@ namespace Hahn.Customers.Domain.Aggregates
             DateOfBirth = dateOfBirth;
             Email = email;
             BankAccountNumber = bankAccountNumber;
+            CreatedAt = DateTime.Now;
 
             ValidateModel();
             AddCustomerInitializedDomainEvent();
