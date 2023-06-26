@@ -60,6 +60,12 @@ namespace Hahn.Customers.Infrastructure.Repositories
             return result;
         }
 
+        public async Task<(bool exist, string emailOwner)> DoesCustomerEmailExistAsync(Customer customer)
+        {
+            var exisit = await _context.Customers.FirstOrDefaultAsync(x => x.Email.ToLower() == customer.Email.ToLower() && x.Id != customer.Id);
+            return (exisit != null, $"{exisit?.FirstName} {exisit?.LastName}");
+        }
+
         public Task<Customer> GetByIdAsync(int customerID)
         {
             return _context.Customers.Where(x => x.Id == customerID && !x.IsDeleted).FirstOrDefaultAsync();

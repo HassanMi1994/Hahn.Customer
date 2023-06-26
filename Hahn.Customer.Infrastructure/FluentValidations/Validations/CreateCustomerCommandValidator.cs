@@ -7,7 +7,6 @@ namespace Hahn.Customers.Infrastructure.FluentValidations.Validations
     {
         public CreateCustomerCommandValidator()
         {
-            //CascadeMode = CascadeMode.Stop;
             RuleFor(x => x.FirstName).NotEmpty()
                 .WithMessage("First name is a required field.");
 
@@ -24,10 +23,11 @@ namespace Hahn.Customers.Infrastructure.FluentValidations.Validations
             RuleFor(x => x.Email).EmailAddress().WithMessage("Please enter a valid email");
 
             RuleFor(x => x.DateOfBirth).LessThanOrEqualTo(DateTime.Now).WithMessage($"Please select a date older than today (${DateTime.Now.ToString("yyyy-MM-dd")})");
-
+            
             RuleFor(x => x.BankAccountNumber).NotEmpty().WithMessage("Bank account number is required");
             RuleFor(x => x.BankAccountNumber).MinimumLength(12).WithMessage("Bank account number should be at least 12 characters");
 
         }
+
     }
 }

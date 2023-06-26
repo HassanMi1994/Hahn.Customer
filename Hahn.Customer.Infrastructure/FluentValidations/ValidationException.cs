@@ -19,5 +19,10 @@
                 FlatErrors.Add(System.Text.Json.JsonNamingPolicy.CamelCase.ConvertName(error.Key), errorValues);
             }
         }
+
+        public CustomValidationException(string title, string message)
+        {
+            FlatErrors.Add(title, message);
+        }
     }
 }

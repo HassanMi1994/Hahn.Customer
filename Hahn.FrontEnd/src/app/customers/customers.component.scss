@@ -6,3 +6,32 @@ text-align: center;
     background: rgba(0, 0, 0, .5)
 }
 
+.anime-parent {
+   float: right;
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.anime-input {
+    border: 0;
+    padding: 7px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.anime-input~.focus-border {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #3399FF;
+    transition: 5s;
+}
+
+.anime-input:focus~.focus-border {
+    width: 100%;
+    transition: 5s;
+    left: 0;
+}
+

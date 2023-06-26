@@ -32,7 +32,6 @@ public class HttpGlobalExceptionFilter : IExceptionFilter
         }
         if (context.Exception.GetType() == typeof(CustomValidationException))
         {
-            // need to handle this part better.
             HandleValidationException(context);
         }
         else
@@ -46,7 +45,7 @@ public class HttpGlobalExceptionFilter : IExceptionFilter
     {
         var validationExceptoin = (CustomValidationException)context.Exception;
         context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-        var json= new JsonResult(validationExceptoin.FlatErrors,
+        var json = new JsonResult(validationExceptoin.FlatErrors,
             new JsonSerializerOptions()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase

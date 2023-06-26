@@ -29,4 +29,16 @@
     <ProjectReference Include="..\Hahn.Customer.Infrastructure\Hahn.Customers.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="customer.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="customer.db-shm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="customer.db-wal">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

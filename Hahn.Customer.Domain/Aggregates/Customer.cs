@@ -1,5 +1,4 @@
 ﻿using Hahn.Customers.CustomerDomain.Events;
-using Hahn.Customers.Domain.Abstractions;
 
 namespace Hahn.Customers.Domain.Aggregates
 {
@@ -47,7 +46,7 @@ namespace Hahn.Customers.Domain.Aggregates
 
         private void AddCustomerInitializedDomainEvent()
         {
-            var customerInitializedDomainEvent = new CustomerInitializedDomainEvent(FirstName, LastName, DateOfBirth, Email, BankAccountNumber);
+            var customerInitializedDomainEvent = new CustomerCreatedDomainEvent(Id,FirstName, LastName, DateOfBirth, Email, BankAccountNumber);
             AddDomainEvent(customerInitializedDomainEvent);
         }
 

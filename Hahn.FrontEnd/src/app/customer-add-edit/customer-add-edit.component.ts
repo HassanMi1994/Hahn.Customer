@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Customer } from '../models/customer';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CustomerService } from '../customer.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CustomerValidator } from '../models/customerValidation';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -61,7 +61,7 @@ export class CustomerAddEditComponent implements OnInit {
     if (isValidForm) {
       if (this.id != null || this.id !== undefined) {
         this.customerService.update(cust)
-          .subscribe((customer:Customer) => {
+          .subscribe((customer: Customer) => {
             console.log('successfuly updated');
             this.toastr.success(`customer '${customer.firstName} ${customer.lastName}' successfuly updated!`, 'Success operation!');
             this.router.navigateByUrl('/customers');
@@ -74,7 +74,7 @@ export class CustomerAddEditComponent implements OnInit {
       }
       else {
         this.customerService.create(cust)
-          .subscribe((response:Customer) => {
+          .subscribe((response: Customer) => {
             console.log('successfuly inserted');
             this.toastr.success(`New customer '${response.firstName} ${response.lastName}' successfuly added!`, 'Success operation!');
             this.router.navigateByUrl('/customers');
@@ -96,8 +96,9 @@ export class CustomerAddEditComponent implements OnInit {
     return Object.keys(errors).length == 0;
   }
 
-  private checkErrors(errors:ValidationErrors<Customer>) {
-    if (Object.keys( errors).length > 0) {
+
+  private checkErrors(errors: ValidationErrors<Customer>) {
+    if (Object.keys(errors).length > 0) {
       var keyValueErrors = Object.entries(errors);
       Object.keys(errors).forEach((prop: string) => {
         var errorMessage = keyValueErrors.find(x => x[0] == prop)?.[1];
@@ -105,9 +106,14 @@ export class CustomerAddEditComponent implements OnInit {
         if (formControl) {
           formControl.setErrors(
             {
-              //supposed 'errors[prop]' to work, instead of error message, but did not!
               clientError: errorMessage
             });
+        }
+        else 
+        {
+          var title = prop;
+          var message = keyValueErrors.find(x => x[0] == prop)?.[1] as string;
+          this.toastr.error(message,title)
         }
       });
     }

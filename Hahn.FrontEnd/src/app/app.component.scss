@@ -2,5 +2,16 @@
     padding-top: 70px;
     padding-left: 30px;
     padding-right: 30px;
-    min-height: 100vh;
+    padding-bottom: 70px;
+    min-height: calc(99vh - 150px);
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 60;
+    margin-top: auto;
+    z-index: 99999;
 }

@@ -1,0 +1,43 @@
+ input:focus {
+     background-color: rgba(0, 0, 155, 0.1);
+ }
+
+ .col-3 {
+     float: left;
+     width: 100%;
+     position: relative;
+     margin-bottom: 20px;
+ }
+
+ .col-3 label{
+    font-size: larger;
+ }
+
+ .col-3 input{
+    font-size: larger;
+ }
+
+
+
+
+ .anime-input {
+     border: 0;
+     padding: 7px 0;
+     border-bottom: 1px solid #ccc;
+ }
+
+ .anime-input~.focus-border {
+     position: absolute;
+     bottom: 0;
+     left: 50%;
+     width: 0;
+     height: 2px;
+     background-color: #3399FF;
+     transition: 2s;
+ }
+
+ .anime-input:focus~.focus-border {
+     width: 100%;
+     transition: 3s;
+     left: 0;
+ }

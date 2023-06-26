@@ -4,41 +4,56 @@
 </h2>
 
 <form  [formGroup]="form" (ngSubmit)="onSubmit()">
-    <input type="hidden" *ngIf="isEdit" />
-    <div class="form-group">
-        <label>First Name</label>
-        <input type="text" formControlName="firstName" class="form-control" />
-        <span class="text-danger" *ngIf="form.get('firstName')?.errors">{{form.get('firstName')?.getError('clientError')}}</span>
+   <div class="row">
+    <div class="col-5">
+        <input type="hidden" *ngIf="isEdit" />
+        <div class="form-group col-3 input-effect">
+            <label class="">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control anime-input" />
+            <span class="focus-border"></span>
+            <span class="text-danger" *ngIf="form.get('firstName')?.errors">{{form.get('firstName')?.getError('clientError')}}</span>
+        </div>
+    
+        <div class="form-group col-3">
+            <label>Last Name</label>
+            <input type="text" formControlName="lastName"  class="form-control anime-input " />
+            <span class="focus-border"></span>
+            <span class="text-danger" *ngIf="form.get('lastName')?.errors">{{form.get('lastName')?.getError('clientError')}}</span>
+        </div>
+    
+        <div class="form-group col-3">
+            <label>Date of Birth</label>
+            <input type="date" formControlName="dateOfBirth" [ngModel]="form.get('dateOfBirth')?.value|date:'yyyy-MM-dd'" class="form-control anime-input" />
+            <span class="focus-border"></span>
+            <span class="text-danger" *ngIf="form.get('dateOfBirth')?.errors">{{form.get('dateOfBirth')?.getError('clientError')}}</span>
+        </div>
+    
+        <div class="form-group col-3">
+            <label>Email</label>
+            <input type="email" formControlName="email" class="form-control anime-input" />
+            <span class="focus-border"></span>
+            <span class="text-danger" *ngIf="form.get('email')?.errors">{{form.get('email')?.getError('clientError')}}</span>
+       
+        </div>
+    
+        <div class="form-group col-3">
+            <label>Bank Account Number</label>
+            <input type="text" formControlName="bankAccountNumber" class="form-control anime-input" />
+            <span class="focus-border"></span>
+            <span class="text-danger" *ngIf="form.get('bankAccountNumber')?.errors">{{form.get('bankAccountNumber')?.getError('clientError')}}</span>
+        </div>
+        <br>
+
+        <div class="form-group row btn-operations col-3">
+            <input type="submit" class="btn btn-outline-success " value="Save" />
+            <span class="focus-border"></span>
+            <div class="col-1"></div>
+            <a routerLink="/customers" class="btn btn-outline-info ">Cancel</a>
+            <span class="focus-border"></span>
+        </div>
+    </div>
+    <div class="col-4">
     </div>
 
-    <div class="form-group">
-        <label>Last Name</label>
-        <input type="text" formControlName="lastName"  class="form-control" />
-        <span class="text-danger" *ngIf="form.get('lastName')?.errors">{{form.get('lastName')?.getError('clientError')}}</span>
-    </div>
-
-    <div class="form-group">
-        <label>Date of Birth</label>
-        <input type="date" formControlName="dateOfBirth" [ngModel]="form.get('dateOfBirth')?.value|date:'yyyy-MM-dd'" class="form-control" />
-        <span class="text-danger" *ngIf="form.get('dateOfBirth')?.errors">{{form.get('dateOfBirth')?.getError('clientError')}}</span>
-    </div>
-
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" formControlName="email" class="form-control" />
-        <span class="text-danger" *ngIf="form.get('email')?.errors">{{form.get('email')?.getError('clientError')}}</span>
-   
-    </div>
-
-    <div class="form-group">
-        <label>Bank Account Number</label>
-        <input type="text" formControlName="bankAccountNumber" class="form-control" />
-        <span class="text-danger" *ngIf="form.get('bankAccountNumber')?.errors">{{form.get('bankAccountNumber')?.getError('clientError')}}</span>
-    </div>
-    <br>
-    <div class="form-group row">
-        <div class="col-3"></div>
-        <input type="submit" class="btn btn-success col-2" value="Save" />
-        <a routerLink="/customers" class="btn btn-info col-2">Cancel</a>
-    </div>
+   </div>
 </form>

@@ -13,15 +13,17 @@ export class CustomerService {
 
 
   private baseURL = environment.apiUrl;
+  public paginationStore = new RequestModel();
 
   constructor(private http: HttpClient) {
 
   }
 
-  getCustomers(reqModel:RequestModel): Observable<ResponseModel<Customer[]>> {
-    
-    var searchPart=reqModel.search==""?"":`/search/${reqModel.search}`
-    return this.http.get<ResponseModel<Customer[]>>(`${this.baseURL}/customers/page-size/${reqModel.pageSize}/page-number/${reqModel.pageNumber}${searchPart}`);
+  getCustomers(): Observable<ResponseModel<Customer[]>> {
+
+    var searchPart = this.paginationStore.search == "" ? "" : `/search/${this.paginationStore.search}`
+    var request= this.http.get<ResponseModel<Customer[]>>(`${this.baseURL}/customers/page-size/${this.paginationStore.pageSize}/page-number/${this.paginationStore.pageNumber}${searchPart}`);
+    return  request;
   }
 
   getCustomerById(id: number) {

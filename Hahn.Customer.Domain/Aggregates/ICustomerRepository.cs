@@ -6,6 +6,7 @@
         void Update(Customer customer);
         Task<Customer> GetByIdAsync(int customerID);
         Task<bool> DeleteAsync(int customerId);
-        Task<PaginationResponse<IEnumerable<Customer>>> GetCustomersAsync(int pageSize, int pageNumber,string search="");
+        Task<PaginationResponse<IEnumerable<Customer>>> GetCustomersAsync(int pageSize, int pageNumber, string search = "");
+        Task<(bool exist, string emailOwner)> DoesCustomerEmailExistAsync(Customer customer);
     }
 }
